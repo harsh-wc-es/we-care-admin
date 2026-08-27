@@ -20,9 +20,12 @@ import RefundManagementPage from './pages/dashboard/RefundManagementPage';
 import SettingsPage from './pages/dashboard/SettingsPage';
 import NotificationsPage from './pages/dashboard/NotificationsPage';
 
+const ROUTER_BASE = (import.meta.env.VITE_ROUTER_BASE || '/admin').replace(/\/+$/, '') || '/';
+const BASENAME = ROUTER_BASE === '/' ? '' : ROUTER_BASE;
+
 export default function App() {
   return (
-    <BrowserRouter basename="/admin">
+    <BrowserRouter basename={BASENAME}>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
