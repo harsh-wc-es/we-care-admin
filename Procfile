@@ -1,1 +1,1 @@
-web: npm run start
+web: nginx -g "daemon off;"
