@@ -1,4 +1,9 @@
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '/api/v1').replace(/\/+$/, '');
+const API_BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL ||
+  (typeof window !== 'undefined' && window.location.hostname.includes('railway.app')
+    ? 'https://we-care-api-es.up.railway.app/api/v1'
+    : '/api/v1')
+).replace(/\/+$/, '');
 const DEV_MOCK_MODE = String(import.meta.env.VITE_DEV_MOCK_MODE || '').toLowerCase() === 'true';
 const IS_DEV = import.meta.env.DEV;
 

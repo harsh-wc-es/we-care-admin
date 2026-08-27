@@ -4,7 +4,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Build arguments for environment variables
-ARG VITE_API_BASE_URL
+ARG VITE_API_BASE_URL=https://we-care-api-es.up.railway.app/api/v1
 ARG VITE_ROUTER_BASE=/admin/
 ARG VITE_DEV_MOCK_MODE=false
 
