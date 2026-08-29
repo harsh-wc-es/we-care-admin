@@ -8,7 +8,7 @@ export default function RequireAdminAuth() {
 
   if (!hasToken || !hasAdminRole) {
     if (hasToken && !hasAdminRole) clearAuth();
-    return <Navigate to="/" replace state={{ from: location.pathname }} />;
+    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
 
   return <Outlet />;

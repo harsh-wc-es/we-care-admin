@@ -1,0 +1,2049 @@
+/* ============================================================
+   WeCare Healthcare Operations & Dispatch Command Center
+   Design System: Enterprise Slate, Clinical Forest & Mint Accents,
+   Precise Geometry, Subtle Specular Surfaces, Refined Typography
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ── Canvas & Surface Tokens ── */
+  --wc-bg: #0b0f14;
+  --wc-bg-subtle: #0f141c;
+  --wc-surface-1: #131922;
+  --wc-surface-2: #18202c;
+  --wc-surface-3: #1f2a3a;
+  --wc-surface-hover: #232e40;
+  --wc-surface-active: #2a374c;
+  --wc-surface-elevated: #161e2a;
+
+  /* ── Borders & Dividers ── */
+  --wc-border: rgba(255, 255, 255, 0.07);
+  --wc-border-subtle: rgba(255, 255, 255, 0.04);
+  --wc-border-strong: rgba(255, 255, 255, 0.12);
+  --wc-border-accent: rgba(16, 185, 129, 0.28);
+  --wc-border-accent-strong: rgba(16, 185, 129, 0.45);
+
+  /* ── Brand Colors (Restrained Healthcare Green) ── */
+  --wc-brand-primary: #10b981;
+  --wc-brand-primary-hover: #059669;
+  --wc-brand-primary-active: #047857;
+  --wc-brand-tint: rgba(16, 185, 129, 0.08);
+  --wc-brand-tint-strong: rgba(16, 185, 129, 0.15);
+  --wc-brand-text: #34d399;
+
+  /* ── Supporting Palette ── */
+  --wc-blue: #3b82f6;
+  --wc-blue-tint: rgba(59, 130, 246, 0.09);
+  --wc-blue-border: rgba(59, 130, 246, 0.25);
+  --wc-amber: #f59e0b;
+  --wc-amber-tint: rgba(245, 158, 11, 0.09);
+  --wc-amber-border: rgba(245, 158, 11, 0.25);
+  --wc-rose: #ef4444;
+  --wc-rose-tint: rgba(239, 68, 68, 0.09);
+  --wc-rose-border: rgba(239, 68, 68, 0.25);
+  --wc-teal: #14b8a6;
+  --wc-teal-tint: rgba(20, 184, 166, 0.09);
+  --wc-indigo: #6366f1;
+  --wc-indigo-tint: rgba(99, 102, 241, 0.09);
+
+  /* ── Typography Tokens ── */
+  --wc-text-primary: #f8fafc;
+  --wc-text-secondary: #94a3b8;
+  --wc-text-tertiary: #64748b;
+  --wc-text-muted: #475569;
+
+  /* ── Fonts ── */
+  --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Radii ── */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+
+  /* ── Shadows & Depth ── */
+  --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 2px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 12px 36px -4px rgba(0, 0, 0, 0.5), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+  --shadow-modal: 0 25px 60px -12px rgba(0, 0, 0, 0.7);
+
+  /* ── Layout ── */
+  --container-max: 1280px;
+  --nav-height: 72px;
+}
+
+/* ============================================================
+   Base & Reset
+   ============================================================ */
+.wecare-page {
+  min-height: 100vh;
+  background-color: var(--wc-bg);
+  color: var(--wc-text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+  selection-background-color: var(--wc-brand-primary);
+}
+
+.wecare-page * {
+  box-sizing: border-box;
+}
+
+.wecare-page a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.wecare-page button {
+  font-family: inherit;
+}
+
+/* Subtle architectural background texture */
+.wecare-bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 10%, black 30%, transparent 80%);
+}
+
+.wecare-bg-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 480px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.07) 0%, rgba(15, 23, 42, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wecare-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   Common Typography & Section Standards
+   ============================================================ */
+.wecare-section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.wecare-section-alt {
+  background-color: var(--wc-bg-subtle);
+  border-top: 1px solid var(--wc-border-subtle);
+  border-bottom: 1px solid var(--wc-border-subtle);
+}
+
+.wecare-section-header {
+  margin-bottom: 48px;
+}
+
+.wecare-section-header.text-center {
+  text-align: center;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wecare-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--wc-brand-text);
+  margin-bottom: 14px;
+}
+
+.wecare-eyebrow-badge {
+  background: var(--wc-brand-tint);
+  border: 1px solid var(--wc-border-accent);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.wecare-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--wc-text-primary);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.02em;
+}
+
+.wecare-section-desc {
+  font-size: 16px;
+  color: var(--wc-text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ============================================================
+   Buttons & Badges
+   ============================================================ */
+.wc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s ease-in-out;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.wc-btn-primary {
+  background-color: var(--wc-brand-primary);
+  color: #04251a;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.wc-btn-primary:hover {
+  background-color: var(--wc-brand-primary-hover);
+  color: #021a12;
+}
+
+.wc-btn-primary:active {
+  background-color: var(--wc-brand-primary-active);
+  transform: translateY(1px);
+}
+
+.wc-btn-secondary {
+  background-color: var(--wc-surface-2);
+  color: var(--wc-text-primary);
+  border-color: var(--wc-border);
+}
+
+.wc-btn-secondary:hover {
+  background-color: var(--wc-surface-3);
+  border-color: var(--wc-border-strong);
+  color: #ffffff;
+}
+
+.wc-btn-ghost {
+  background-color: transparent;
+  color: var(--wc-text-secondary);
+}
+
+.wc-btn-ghost:hover {
+  color: var(--wc-text-primary);
+  background-color: var(--wc-surface-1);
+}
+
+.wc-btn-lg {
+  padding: 13px 24px;
+  font-size: 15px;
+  border-radius: var(--radius-md);
+}
+
+.wc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  line-height: 1.3;
+}
+
+.wc-badge-green {
+  background: var(--wc-brand-tint);
+  color: var(--wc-brand-text);
+  border: 1px solid var(--wc-border-accent);
+}
+
+.wc-badge-blue {
+  background: var(--wc-blue-tint);
+  color: #60a5fa;
+  border: 1px solid var(--wc-blue-border);
+}
+
+.wc-badge-amber {
+  background: var(--wc-amber-tint);
+  color: #fbbf24;
+  border: 1px solid var(--wc-amber-border);
+}
+
+.wc-badge-rose {
+  background: var(--wc-rose-tint);
+  color: #f87171;
+  border: 1px solid var(--wc-rose-border);
+}
+
+.wc-badge-neutral {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--wc-text-secondary);
+  border: 1px solid var(--wc-border);
+}
+
+/* ============================================================
+   1. Clean Navigation
+   ============================================================ */
+.wecare-navbar-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 15, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--wc-border);
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+}
+
+.wecare-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.wecare-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.wecare-nav-logo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.wecare-brand-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.wecare-brand-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--wc-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.wecare-brand-sub {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--wc-text-tertiary);
+}
+
+.wecare-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.wecare-nav-item {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--wc-text-secondary);
+  transition: color 0.15s ease;
+  position: relative;
+}
+
+.wecare-nav-item:hover {
+  color: var(--wc-text-primary);
+}
+
+.wecare-nav-item.active {
+  color: var(--wc-brand-text);
+}
+
+.wecare-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wecare-nav-mobile-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--wc-border);
+  color: var(--wc-text-primary);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* Mobile Nav Drawer */
+.wecare-mobile-menu {
+  display: none;
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--wc-surface-1);
+  border-bottom: 1px solid var(--wc-border-strong);
+  padding: 20px 24px;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-modal);
+}
+
+.wecare-mobile-menu.open {
+  display: flex;
+}
+
+.wecare-mobile-menu a {
+  padding: 8px 0;
+  font-size: 15px;
+  color: var(--wc-text-secondary);
+  border-bottom: 1px solid var(--wc-border-subtle);
+}
+
+.wecare-mobile-menu a:hover {
+  color: var(--wc-text-primary);
+}
+
+/* ============================================================
+   2. Hero Section & Operational Preview
+   ============================================================ */
+.wecare-hero {
+  padding: 70px 0 90px;
+  position: relative;
+}
+
+.wecare-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.wecare-hero-content {
+  max-width: 580px;
+}
+
+.wecare-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.2vw, 54px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--wc-text-primary);
+  margin: 0 0 20px 0;
+}
+
+.wecare-hero-title span.highlight {
+  color: var(--wc-brand-text);
+  font-weight: 800;
+}
+
+.wecare-hero-lead {
+  font-size: 17px;
+  color: var(--wc-text-secondary);
+  line-height: 1.65;
+  margin: 0 0 32px 0;
+}
+
+.wecare-hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.wecare-hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding-top: 28px;
+  border-top: 1px solid var(--wc-border);
+}
+
+.wecare-metric-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.wecare-metric-num {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--wc-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.wecare-metric-lbl {
+  font-size: 12px;
+  color: var(--wc-text-tertiary);
+  margin-top: 2px;
+}
+
+/* ── Hero Operational Visualization (Mission Control Panel) ── */
+.wecare-hero-vis {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated);
+  position: relative;
+}
+
+.wecare-vis-header {
+  padding: 16px 20px;
+  background: var(--wc-surface-2);
+  border-bottom: 1px solid var(--wc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wecare-vis-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wecare-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--wc-brand-primary);
+  box-shadow: 0 0 0 3px var(--wc-brand-tint-strong);
+}
+
+.wecare-vis-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--wc-text-primary);
+}
+
+.wecare-vis-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+}
+
+/* Vis Body */
+.wecare-vis-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Live Operational Strip */
+.wecare-vis-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.wecare-vis-stat-card {
+  background: var(--wc-surface-2);
+  border: 1px solid var(--wc-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.wecare-stat-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.wecare-stat-val {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--wc-text-primary);
+}
+
+.wecare-stat-tag {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.wecare-stat-caption {
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+  margin-top: 2px;
+}
+
+/* Active Dispatch Card */
+.wecare-vis-dispatch-card {
+  background: var(--wc-surface-2);
+  border: 1px solid var(--wc-border);
+  border-left: 3px solid var(--wc-brand-primary);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.wecare-dispatch-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.wecare-dispatch-patient {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wecare-dispatch-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--wc-surface-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--wc-text-secondary);
+}
+
+.wecare-dispatch-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--wc-text-primary);
+}
+
+.wecare-dispatch-care {
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+}
+
+/* Timeline inside Vis */
+.wecare-vis-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 8px;
+  border-left: 2px solid var(--wc-surface-3);
+  margin: 10px 0 4px 8px;
+}
+
+.wecare-vis-step {
+  position: relative;
+  padding-left: 14px;
+}
+
+.wecare-vis-step::before {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--wc-text-muted);
+}
+
+.wecare-vis-step.done::before {
+  background: var(--wc-brand-primary);
+}
+
+.wecare-vis-step.current::before {
+  background: var(--wc-blue);
+  box-shadow: 0 0 0 3px var(--wc-blue-tint);
+}
+
+.wecare-vis-step-text {
+  font-size: 12px;
+  color: var(--wc-text-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wecare-vis-step-text strong {
+  color: var(--wc-text-primary);
+  font-weight: 500;
+}
+
+.wecare-vis-step-time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--wc-text-muted);
+}
+
+/* Vis Footer */
+.wecare-vis-footer {
+  padding: 12px 20px;
+  background: var(--wc-surface-2);
+  border-top: 1px solid var(--wc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--wc-text-secondary);
+}
+
+.wecare-vis-footer-link {
+  color: var(--wc-brand-text);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wecare-vis-footer-link:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   3. Core Capabilities Section (Varied Layout)
+   ============================================================ */
+.wecare-capabilities-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+}
+
+/* Featured Hero Capability Card (Left) */
+.wecare-cap-featured {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.wecare-cap-featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--wc-brand-primary), transparent);
+}
+
+.wecare-cap-featured-top {
+  margin-bottom: 24px;
+}
+
+.wecare-cap-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--wc-brand-tint);
+  border: 1px solid var(--wc-border-accent);
+  color: var(--wc-brand-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.wecare-cap-featured-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--wc-text-primary);
+  margin: 0 0 10px 0;
+}
+
+.wecare-cap-featured-desc {
+  font-size: 15px;
+  color: var(--wc-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+.wecare-cap-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.wecare-cap-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--wc-text-secondary);
+}
+
+.wecare-cap-check-icon {
+  color: var(--wc-brand-primary);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.wecare-cap-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+  background: var(--wc-surface-2);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--wc-border-subtle);
+  margin-bottom: 24px;
+}
+
+.wecare-cap-kpi-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.wecare-cap-kpi-val {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--wc-text-primary);
+}
+
+.wecare-cap-kpi-lbl {
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+  margin-top: 2px;
+}
+
+/* Secondary Capability Cards Stack (Right) */
+.wecare-cap-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wecare-cap-item {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.wecare-cap-item:hover {
+  background: var(--wc-surface-2);
+  border-color: var(--wc-border-strong);
+  transform: translateX(4px);
+}
+
+.wecare-cap-item.active {
+  border-color: var(--wc-border-accent-strong);
+  background: var(--wc-surface-2);
+}
+
+.wecare-cap-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.wecare-cap-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wecare-cap-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--wc-surface-3);
+  color: var(--wc-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.wecare-cap-item.active .wecare-cap-item-icon {
+  background: var(--wc-brand-tint);
+  color: var(--wc-brand-text);
+  border: 1px solid var(--wc-border-accent);
+}
+
+.wecare-cap-item-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--wc-text-primary);
+  margin: 0;
+}
+
+.wecare-cap-item-desc {
+  font-size: 13px;
+  color: var(--wc-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+  padding-left: 44px;
+}
+
+.wecare-cap-item-arrow {
+  color: var(--wc-text-tertiary);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.wecare-cap-item:hover .wecare-cap-item-arrow {
+  color: var(--wc-text-primary);
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   4. Operations Lifecycle Flow (Connected Journey)
+   ============================================================ */
+.wecare-flow-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Horizontal Track of 5 Nodes */
+.wecare-flow-track {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  position: relative;
+}
+
+.wecare-flow-node {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wecare-flow-node:hover {
+  background: var(--wc-surface-2);
+  border-color: var(--wc-border-strong);
+}
+
+.wecare-flow-node.active {
+  background: var(--wc-surface-2);
+  border-color: var(--wc-border-accent);
+  box-shadow: 0 0 0 1px var(--wc-brand-primary);
+}
+
+.wecare-flow-node-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.wecare-flow-stage-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--wc-brand-text);
+  background: var(--wc-brand-tint);
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+}
+
+.wecare-flow-node-icon {
+  color: var(--wc-text-secondary);
+}
+
+.wecare-flow-node.active .wecare-flow-node-icon {
+  color: var(--wc-brand-primary);
+}
+
+.wecare-flow-node-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--wc-text-primary);
+  margin: 0 0 6px 0;
+  line-height: 1.35;
+}
+
+.wecare-flow-node-sla {
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+  margin-top: 10px;
+  font-family: var(--font-mono);
+}
+
+/* Selected Stage Detail Inspector */
+.wecare-flow-inspector {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+}
+
+.wecare-inspector-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wecare-inspector-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--wc-brand-text);
+  margin-bottom: 8px;
+}
+
+.wecare-inspector-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--wc-text-primary);
+  margin: 0 0 8px 0;
+}
+
+.wecare-inspector-role {
+  font-size: 13px;
+  color: var(--wc-text-tertiary);
+  margin-bottom: 16px;
+}
+
+.wecare-inspector-desc {
+  font-size: 14px;
+  color: var(--wc-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Payload Code View (Right) */
+.wecare-inspector-code-box {
+  background: var(--wc-bg);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.wecare-code-header {
+  padding: 10px 14px;
+  background: var(--wc-surface-2);
+  border-bottom: 1px solid var(--wc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--wc-text-tertiary);
+}
+
+.wecare-code-block {
+  padding: 14px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #a7f3d0;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+/* ============================================================
+   5. Interactive Live Operations Simulator
+   ============================================================ */
+.wecare-sim-card {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.wecare-sim-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+}
+
+/* Scenario Selector (Left) */
+.wecare-sim-nav {
+  background: var(--wc-surface-subtle);
+  border-right: 1px solid var(--wc-border);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wecare-sim-nav-header {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--wc-text-tertiary);
+  margin-bottom: 10px;
+  padding: 0 8px;
+  letter-spacing: 0.05em;
+}
+
+.wecare-sim-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--wc-text-secondary);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.wecare-sim-btn:hover {
+  background: var(--wc-surface-2);
+  color: var(--wc-text-primary);
+}
+
+.wecare-sim-btn.active {
+  background: var(--wc-surface-2);
+  border-color: var(--wc-border-accent);
+  color: var(--wc-text-primary);
+}
+
+.wecare-sim-btn-icon {
+  margin-top: 2px;
+  color: var(--wc-text-tertiary);
+}
+
+.wecare-sim-btn.active .wecare-sim-btn-icon {
+  color: var(--wc-brand-primary);
+}
+
+.wecare-sim-btn-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: inherit;
+  line-height: 1.3;
+}
+
+.wecare-sim-btn-tag {
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+  margin-top: 3px;
+}
+
+/* Simulation Output Console (Right) */
+.wecare-sim-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--wc-surface-1);
+}
+
+.wecare-sim-topbar {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--wc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--wc-surface-2);
+}
+
+.wecare-sim-active-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wecare-sim-active-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--wc-text-primary);
+}
+
+.wecare-sim-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wecare-sim-tab-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--wc-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.wecare-sim-tab-btn:hover {
+  color: var(--wc-text-primary);
+}
+
+.wecare-sim-tab-btn.active {
+  background: var(--wc-surface-3);
+  color: var(--wc-text-primary);
+  border-color: var(--wc-border);
+}
+
+.wecare-sim-copy-btn {
+  background: transparent;
+  border: 1px solid var(--wc-border);
+  color: var(--wc-text-secondary);
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.wecare-sim-copy-btn:hover {
+  background: var(--wc-surface-3);
+  color: var(--wc-text-primary);
+}
+
+/* Console Content Body */
+.wecare-sim-body {
+  padding: 24px;
+  flex: 1;
+  min-height: 280px;
+}
+
+.wecare-sim-synopsis {
+  font-size: 14px;
+  color: var(--wc-text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.wecare-sim-cascade-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.wecare-sim-cascade-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--wc-text-primary);
+  background: var(--wc-surface-2);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--wc-border-subtle);
+}
+
+.wecare-sim-cascade-icon {
+  color: var(--wc-brand-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.wecare-sim-endpoint {
+  padding: 10px 14px;
+  background: var(--wc-bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--wc-border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--wc-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wecare-sim-endpoint code {
+  color: var(--wc-brand-text);
+}
+
+/* JSON Tab View */
+.wecare-sim-json-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.wecare-json-card {
+  background: var(--wc-bg);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.wecare-json-title {
+  padding: 8px 12px;
+  background: var(--wc-surface-2);
+  border-bottom: 1px solid var(--wc-border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--wc-text-tertiary);
+}
+
+.wecare-json-pre {
+  padding: 12px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #94a3b8;
+  max-height: 220px;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+.wecare-json-pre.success {
+  color: #34d399;
+}
+
+/* Simulator Footer */
+.wecare-sim-footer {
+  padding: 12px 24px;
+  background: var(--wc-surface-2);
+  border-top: 1px solid var(--wc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--wc-text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.wecare-sim-status-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--wc-brand-text);
+}
+
+/* ============================================================
+   6. Operational Playbooks (SOPs) Section
+   ============================================================ */
+.wecare-playbooks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.wecare-sop-card {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.wecare-sop-card:hover {
+  border-color: var(--wc-border-strong);
+}
+
+.wecare-sop-header {
+  padding: 20px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--wc-surface-1);
+  transition: background-color 0.15s ease;
+}
+
+.wecare-sop-header:hover {
+  background: var(--wc-surface-2);
+}
+
+.wecare-sop-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.wecare-sop-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--wc-surface-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wc-text-primary);
+  flex-shrink: 0;
+}
+
+.wecare-sop-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.wecare-sop-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.wecare-sop-cat {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--wc-brand-text);
+}
+
+.wecare-sop-sla {
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.wecare-sop-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--wc-text-primary);
+  margin: 0;
+}
+
+.wecare-sop-toggle-btn {
+  color: var(--wc-text-tertiary);
+  transition: transform 0.2s ease;
+}
+
+.wecare-sop-toggle-btn.expanded {
+  transform: rotate(180deg);
+}
+
+/* Expanded Content */
+.wecare-sop-body {
+  padding: 0 24px 24px 24px;
+  border-top: 1px solid var(--wc-border-subtle);
+  background: var(--wc-surface-1);
+}
+
+.wecare-sop-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0;
+  margin: 0;
+  list-style: none;
+}
+
+.wecare-sop-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--wc-text-secondary);
+  line-height: 1.5;
+}
+
+.wecare-sop-step-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--wc-surface-3);
+  color: var(--wc-text-primary);
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.wecare-sop-step-text strong {
+  color: var(--wc-text-primary);
+  font-weight: 600;
+}
+
+.wecare-sop-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+/* ============================================================
+   7. Admin Module Directory (Grouped by Domain)
+   ============================================================ */
+.wecare-modules-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.wecare-search-input-wrap {
+  position: relative;
+  width: 320px;
+}
+
+.wecare-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--wc-text-tertiary);
+  pointer-events: none;
+}
+
+.wecare-search-field {
+  width: 100%;
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px 9px 36px;
+  font-size: 13px;
+  color: var(--wc-text-primary);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.wecare-search-field:focus {
+  border-color: var(--wc-border-accent);
+}
+
+.wecare-search-field::placeholder {
+  color: var(--wc-text-tertiary);
+}
+
+.wecare-category-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.wecare-filter-pill {
+  background: transparent;
+  border: 1px solid var(--wc-border);
+  color: var(--wc-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.wecare-filter-pill:hover {
+  color: var(--wc-text-primary);
+  background: var(--wc-surface-2);
+}
+
+.wecare-filter-pill.active {
+  background: var(--wc-surface-3);
+  border-color: var(--wc-border-accent);
+  color: var(--wc-brand-text);
+}
+
+/* Domain Groups */
+.wecare-module-domains {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.wecare-domain-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wecare-domain-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--wc-border-subtle);
+}
+
+.wecare-domain-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--wc-brand-text);
+}
+
+.wecare-domain-count {
+  font-size: 12px;
+  color: var(--wc-text-tertiary);
+}
+
+.wecare-modules-row-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.wecare-module-tile {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.wecare-module-tile:hover {
+  background: var(--wc-surface-2);
+  border-color: var(--wc-border-strong);
+  transform: translateY(-2px);
+}
+
+.wecare-module-tile-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--wc-surface-3);
+  color: var(--wc-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.wecare-module-tile:hover .wecare-module-tile-icon {
+  background: var(--wc-brand-tint);
+  color: var(--wc-brand-text);
+}
+
+.wecare-module-tile-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.wecare-module-tile-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--wc-text-primary);
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wecare-module-tile-arrow {
+  color: var(--wc-text-tertiary);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.15s ease;
+}
+
+.wecare-module-tile:hover .wecare-module-tile-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--wc-brand-text);
+}
+
+.wecare-module-tile-desc {
+  font-size: 12px;
+  color: var(--wc-text-secondary);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.wecare-no-modules {
+  text-align: center;
+  padding: 48px;
+  color: var(--wc-text-tertiary);
+}
+
+/* ============================================================
+   8. Final Command CTA
+   ============================================================ */
+.wecare-final-cta {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-xl);
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.wecare-final-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.wecare-cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 800;
+  color: var(--wc-text-primary);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.02em;
+}
+
+.wecare-cta-sub {
+  font-size: 16px;
+  color: var(--wc-text-secondary);
+  max-width: 640px;
+  margin: 0 auto 32px auto;
+  line-height: 1.6;
+}
+
+.wecare-cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* ============================================================
+   9. Clean Footer
+   ============================================================ */
+.wecare-footer {
+  border-top: 1px solid var(--wc-border);
+  background: var(--wc-bg);
+  padding: 48px 0;
+  font-size: 13px;
+  color: var(--wc-text-tertiary);
+}
+
+.wecare-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wecare-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wecare-footer-logo {
+  height: 24px;
+  width: auto;
+  opacity: 0.8;
+}
+
+.wecare-footer-copy {
+  margin: 0;
+}
+
+.wecare-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.wecare-footer-nav a {
+  color: var(--wc-text-secondary);
+  transition: color 0.15s ease;
+}
+
+.wecare-footer-nav a:hover {
+  color: var(--wc-text-primary);
+}
+
+/* ============================================================
+   10. Quick Sign In Modal
+   ============================================================ */
+.wecare-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 8, 12, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.wecare-modal-box {
+  background: var(--wc-surface-1);
+  border: 1px solid var(--wc-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  width: 100%;
+  max-width: 440px;
+  overflow: hidden;
+  position: relative;
+}
+
+.wecare-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: var(--wc-text-tertiary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-xs);
+}
+
+.wecare-modal-close:hover {
+  color: var(--wc-text-primary);
+  background: var(--wc-surface-2);
+}
+
+.wecare-modal-head {
+  padding: 28px 28px 20px 28px;
+  text-align: center;
+}
+
+.wecare-modal-logo {
+  height: 36px;
+  width: auto;
+  margin: 0 auto 14px auto;
+  display: block;
+}
+
+.wecare-modal-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--wc-text-primary);
+  margin: 0 0 6px 0;
+}
+
+.wecare-modal-desc {
+  font-size: 13px;
+  color: var(--wc-text-secondary);
+  margin: 0;
+}
+
+.wecare-modal-form {
+  padding: 0 28px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wecare-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wecare-form-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wecare-form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--wc-text-secondary);
+}
+
+.wecare-form-input {
+  background: var(--wc-bg);
+  border: 1px solid var(--wc-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--wc-text-primary);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.wecare-form-input:focus {
+  border-color: var(--wc-brand-primary);
+}
+
+.wecare-pwd-toggle {
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  color: var(--wc-text-tertiary);
+  cursor: pointer;
+}
+
+.wecare-pwd-toggle:hover {
+  color: var(--wc-text-primary);
+}
+
+.wecare-form-alert {
+  background: var(--wc-rose-tint);
+  border: 1px solid var(--wc-rose-border);
+  color: #fca5a5;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wecare-modal-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--wc-text-tertiary);
+  font-size: 11px;
+  margin: 4px 0;
+}
+
+.wecare-modal-divider::before,
+.wecare-modal-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--wc-border);
+}
+
+.wecare-modal-divider span {
+  padding: 0 10px;
+}
+
+.wecare-btn-demo {
+  background: var(--wc-surface-2);
+  border: 1px dashed var(--wc-border-strong);
+  color: var(--wc-text-secondary);
+  font-size: 12px;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.wecare-btn-demo:hover {
+  background: var(--wc-surface-3);
+  color: var(--wc-text-primary);
+  border-color: var(--wc-brand-primary);
+}
+
+.wecare-modal-foot {
+  text-align: center;
+  font-size: 12px;
+}
+
+.wecare-modal-foot a {
+  color: var(--wc-brand-text);
+}
+
+/* ============================================================
+   Responsive Adjustments
+   ============================================================ */
+@media (max-width: 1080px) {
+  .wecare-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .wecare-hero-content {
+    max-width: 100%;
+  }
+  .wecare-capabilities-layout {
+    grid-template-columns: 1fr;
+  }
+  .wecare-flow-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .wecare-flow-inspector {
+    grid-template-columns: 1fr;
+  }
+  .wecare-modules-row-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .wecare-nav-links {
+    display: none;
+  }
+  .wecare-nav-mobile-toggle {
+    display: block;
+  }
+  .wecare-hero-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .wecare-flow-track {
+    grid-template-columns: 1fr;
+  }
+  .wecare-sim-grid {
+    grid-template-columns: 1fr;
+  }
+  .wecare-sim-nav {
+    border-right: none;
+    border-bottom: 1px solid var(--wc-border);
+  }
+  .wecare-sim-json-grid {
+    grid-template-columns: 1fr;
+  }
+  .wecare-playbooks-grid {
+    grid-template-columns: 1fr;
+  }
+  .wecare-modules-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .wecare-search-input-wrap {
+    width: 100%;
+  }
+  .wecare-modules-row-grid {
+    grid-template-columns: 1fr;
+  }
+  .wecare-footer-inner {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  .wecare-footer-brand {
+    justify-content: center;
+  }
+  .wecare-footer-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

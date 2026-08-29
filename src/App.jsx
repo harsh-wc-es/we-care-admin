@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AdminLayout from './components/AdminLayout';
 import RequireAdminAuth from './components/RequireAdminAuth';
+import AdminWelcomePage from './pages/welcome/AdminWelcomePage';
 import LoginPage from './pages/auth/LoginPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import VerifyOTPPage from './pages/auth/VerifyOTPPage';
@@ -20,17 +21,27 @@ import RefundManagementPage from './pages/dashboard/RefundManagementPage';
 import SettingsPage from './pages/dashboard/SettingsPage';
 import NotificationsPage from './pages/dashboard/NotificationsPage';
 
-const ROUTER_BASE = (import.meta.env.VITE_ROUTER_BASE || '/admin').replace(/\/+$/, '') || '/';
-const BASENAME = ROUTER_BASE === '/' ? '' : ROUTER_BASE;
+const envBase = (import.meta.env.VITE_ROUTER_BASE || '').replace(/\/+$/, '');
+const isUnderSubpath = envBase && typeof window !== 'undefined' && window.location.pathname.startsWith(envBase);
+const BASENAME = isUnderSubpath ? envBase : '';
 
 export default function App() {
   return (
     <BrowserRouter basename={BASENAME}>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        {/* Welcome & Command Hub */}
+        <Route path="/" element={<AdminWelcomePage />} />
+        <Route path="/welcome" element={<AdminWelcomePage />} />
+        <Route path="/admin" element={<AdminWelcomePage />} />
+
+        {/* Authentication */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/verify-otp" element={<VerifyOTPPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+        {/* Protected Admin Routes */}
         <Route element={<RequireAdminAuth />}>
           <Route element={<AdminLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
@@ -55,6 +66,7 @@ export default function App() {
             <Route path="/settings" element={<SettingsPage />} />
           </Route>
         </Route>
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
