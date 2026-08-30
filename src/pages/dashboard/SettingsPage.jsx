@@ -229,18 +229,18 @@ export default function SettingsPage() {
 
   return (
     <>
-      <TopBar leftContent={<span style={{fontSize:14,fontWeight:600,color:'#1b4d1c'}}>Settings</span>} />
+      <TopBar leftContent={<span style={{ fontSize: 14, fontWeight: 600, color: '#1b4d1c' }}>Settings</span>} />
       <div className="page-content">
-        <div style={{marginBottom:16}}>
-          <h1 className="page-title" style={{marginBottom:2}}>Settings</h1>
-          <p style={{color:'#6B7280',fontSize:12,margin:0}}>Admin profile, session security, API status, and local workspace preferences.</p>
+        <div style={{ marginBottom: 16 }}>
+          <h1 className="page-title" style={{ marginBottom: 2 }}>Settings</h1>
+          <p style={{ color: '#6B7280', fontSize: 12, margin: 0 }}>Admin profile, session security, API status, and local workspace preferences.</p>
         </div>
 
         <div className="settings-grid">
           <div className="settings-column">
             <SettingsCard
               title="Admin Profile"
-              action={<button className="btn btn-outline" type="button" style={{fontSize:12}} onClick={openProfileModal}>Edit Profile</button>}
+              action={<button className="btn btn-outline" type="button" style={{ fontSize: 12 }} onClick={openProfileModal}>Edit Profile</button>}
             >
               <div className="user-info-grid">
                 <div className="user-info-item"><span>Display Name / Username</span><p>{profileLoading ? 'Loading...' : settingValue(userName(adminProfile))}</p></div>
@@ -253,7 +253,7 @@ export default function SettingsPage() {
 
             <SettingsCard
               title="Security"
-              action={<button className="btn btn-danger" type="button" style={{fontSize:12}} onClick={handleLogout}>Logout</button>}
+              action={<button className="btn btn-danger" type="button" style={{ fontSize: 12 }} onClick={handleLogout}>Logout</button>}
             >
               <div className="user-info-grid">
                 <div className="user-info-item"><span>Auth Method</span><p>JWT Bearer Token</p></div>
@@ -266,7 +266,7 @@ export default function SettingsPage() {
 
             <SettingsCard
               title="Admin Preferences"
-              action={<button className="btn btn-primary" type="button" style={{fontSize:12}} onClick={savePreferences}>Save Preferences</button>}
+              action={<button className="btn btn-primary" type="button" style={{ fontSize: 12 }} onClick={savePreferences}>Save Preferences</button>}
             >
               <div className="settings-form-grid">
                 <label>
@@ -302,10 +302,10 @@ export default function SettingsPage() {
           <div className="settings-column">
             <SettingsCard
               title="Backend API"
-              action={<button className="btn btn-outline" type="button" style={{fontSize:12}} onClick={testApiConnection} disabled={testingApi}>{testingApi ? 'Testing...' : 'Test API Connection'}</button>}
+              action={<button className="btn btn-outline" type="button" style={{ fontSize: 12 }} onClick={testApiConnection} disabled={testingApi}>{testingApi ? 'Testing...' : 'Test API Connection'}</button>}
             >
               <div className="user-info-grid">
-                <div className="user-info-item" style={{gridColumn:'1 / -1'}}>
+                <div className="user-info-item" style={{ gridColumn: '1 / -1' }}>
                   <span>API Base URL</span>
                   <p className="settings-mono">{API_BASE_URL}</p>
                 </div>
@@ -340,20 +340,20 @@ export default function SettingsPage() {
           confirmDisabled={profileSaveDisabled}
           loading={profileSaving}
         >
-          <div className="settings-form-grid" style={{marginTop:12}}>
+          <div className="settings-form-grid" style={{ marginTop: 12 }}>
             <label>
               <span>Display Name / Username</span>
-              <input style={inputStyle} value={profileForm.name} onChange={(event) => setProfileForm({...profileForm, name: event.target.value})} />
+              <input style={inputStyle} value={profileForm.name} onChange={(event) => setProfileForm({ ...profileForm, name: event.target.value })} />
               {(profileErrors.name || profileValidation.name) && <small className="settings-field-error">{profileErrors.name || profileValidation.name}</small>}
             </label>
             <label>
               <span>Email</span>
-              <input style={inputStyle} type="email" value={profileForm.email} onChange={(event) => setProfileForm({...profileForm, email: event.target.value})} />
+              <input style={inputStyle} type="email" value={profileForm.email} onChange={(event) => setProfileForm({ ...profileForm, email: event.target.value })} />
               {(profileErrors.email || profileValidation.email) && <small className="settings-field-error">{profileErrors.email || profileValidation.email}</small>}
             </label>
             <label>
               <span>Phone</span>
-              <input style={inputStyle} value={profileForm.phone_number} onChange={(event) => setProfileForm({...profileForm, phone_number: event.target.value})} />
+              <input style={inputStyle} value={profileForm.phone_number} onChange={(event) => setProfileForm({ ...profileForm, phone_number: event.target.value })} />
               {(profileErrors.phone_number || profileValidation.phone_number) && <small className="settings-field-error">{profileErrors.phone_number || profileValidation.phone_number}</small>}
             </label>
             {!profileChanged && <div className="settings-api-status settings-api-status--idle">No profile changes yet.</div>}

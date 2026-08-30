@@ -144,21 +144,25 @@ export default function PricingTiersPage() {
   };
 
   const columns = [
-    { key: 'name', label: 'Tier', render: (r) => (
-      <button className="table-link" onClick={() => loadDetail(r)}>{r.name || 'Unnamed tier'}</button>
-    ) },
+    {
+      key: 'name', label: 'Tier', render: (r) => (
+        <button className="table-link" onClick={() => loadDetail(r)}>{r.name || 'Unnamed tier'}</button>
+      )
+    },
     { key: 'skill_level', label: 'Skill', render: (r) => <Badge status={r.skill_level || 'standard'} /> },
     { key: 'customer_hourly_rate', label: 'Customer Rate', render: (r) => `₹${r.customer_hourly_rate || '—'}/hr` },
     { key: 'caretaker_hourly_rate', label: 'Caretaker Rate', render: (r) => `₹${r.caretaker_hourly_rate || '—'}/hr` },
     { key: 'commission', label: 'Platform Fee', render: commissionText },
     { key: 'assigned', label: 'Assigned', render: (r) => r.assigned_caregivers ?? r.caretaker_count ?? '—' },
     { key: 'is_active', label: 'Status', render: (r) => <Badge status={r.is_active === false || r.is_active === 0 ? 'inactive' : 'active'} /> },
-    { key: 'actions', label: 'Actions', render: (r) => (
-      <div style={{display:'flex',gap:6}}>
-        <button className="btn btn-outline" style={{fontSize:11,padding:'4px 10px'}} onClick={() => loadDetail(r)}>View</button>
-        <button className="btn btn-outline" style={{fontSize:11,padding:'4px 10px'}} onClick={() => openEdit(r)}>Edit</button>
-      </div>
-    ) },
+    {
+      key: 'actions', label: 'Actions', render: (r) => (
+        <div style={{ display: 'flex', gap: 6 }}>
+          <button className="btn btn-outline" style={{ fontSize: 11, padding: '4px 10px' }} onClick={() => loadDetail(r)}>View</button>
+          <button className="btn btn-outline" style={{ fontSize: 11, padding: '4px 10px' }} onClick={() => openEdit(r)}>Edit</button>
+        </div>
+      )
+    },
   ];
 
   const current = detail || selected || {};
@@ -178,19 +182,19 @@ export default function PricingTiersPage() {
     <>
       <TopBar searchPlaceholder="Search pricing tiers..." />
       <div className="page-content">
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
           <div>
-            <h1 className="page-title" style={{marginBottom:2}}>Pricing Tiers</h1>
-            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Configure hourly and daily rate tiers, caregiver commissions, and package options.</p>
+            <h1 className="page-title" style={{ marginBottom: 2 }}>Pricing Tiers</h1>
+            <p style={{ color: '#6B7280', fontSize: 13, margin: 0 }}>Configure hourly and daily rate tiers, caregiver commissions, and package options.</p>
           </div>
-          <button className="btn btn-primary" style={{fontSize:12}} onClick={openCreate}>Add Tier</button>
+          <button className="btn btn-primary" style={{ fontSize: 12 }} onClick={openCreate}>Add Tier</button>
         </div>
 
         <FilterBar filters={FILTERS} active={filter} onChange={setFilter} />
         {error && <ErrorState title="Unable to load pricing tiers" message={error} onRetry={fetchTiers} />}
 
         <div className="table-card">
-          <div style={{maxHeight:'calc(100vh - 285px)',overflow:'auto'}}>
+          <div style={{ maxHeight: 'calc(100vh - 285px)', overflow: 'auto' }}>
             <DataTable
               columns={columns}
               rows={tiers}
@@ -218,20 +222,20 @@ export default function PricingTiersPage() {
           <div className="user-drawer__section">
             <h4>Assigned Caretakers</h4>
             {assignedCaretakers.length === 0 ? (
-              <p style={{fontSize:13,color:'#9CA3AF'}}>No assigned caretakers returned by the backend.</p>
+              <p style={{ fontSize: 13, color: '#9CA3AF' }}>No assigned caretakers returned by the backend.</p>
             ) : assignedCaretakers.map((caretaker, index) => (
-              <div key={caretaker.id || caretaker.user_id || index} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid #F3F6EE',fontSize:13}}>
+              <div key={caretaker.id || caretaker.user_id || index} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #F3F6EE', fontSize: 13 }}>
                 <span>{caretaker.full_name || caretaker.name || `Caretaker #${caretaker.id || caretaker.user_id}`}</span>
-                <span style={{fontWeight:600,color:'#1b4d1c'}}>₹{caretaker.caretaker_hourly_rate || current.caretaker_hourly_rate || '—'}/hr</span>
+                <span style={{ fontWeight: 600, color: '#1b4d1c' }}>₹{caretaker.caretaker_hourly_rate || current.caretaker_hourly_rate || '—'}/hr</span>
               </div>
             ))}
           </div>
 
-          <div style={{display:'flex',gap:8,flexWrap:'wrap',paddingTop:12,borderTop:'1px solid #E4ECD9'}}>
-            <button className="btn btn-outline" style={{fontSize:12}} onClick={() => openEdit(current)}>Edit Tier</button>
-            <button className="btn btn-primary" style={{fontSize:12}} onClick={() => { setAssignCaretakerId(''); setModal('assign'); }}>Assign to Caretaker</button>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', paddingTop: 12, borderTop: '1px solid #E4ECD9' }}>
+            <button className="btn btn-outline" style={{ fontSize: 12 }} onClick={() => openEdit(current)}>Edit Tier</button>
+            <button className="btn btn-primary" style={{ fontSize: 12 }} onClick={() => { setAssignCaretakerId(''); setModal('assign'); }}>Assign to Caretaker</button>
             {current.is_active !== false && current.is_active !== 0 && (
-              <button className="btn btn-danger" style={{fontSize:12}} onClick={() => setModal('deactivate')}>Deactivate</button>
+              <button className="btn btn-danger" style={{ fontSize: 12 }} onClick={() => setModal('deactivate')}>Deactivate</button>
             )}
           </div>
         </DrawerPanel>
@@ -239,17 +243,17 @@ export default function PricingTiersPage() {
 
       {(modal === 'create' || modal === 'edit') && (
         <div className="drawer-overlay" onClick={(e) => { if (e.target === e.currentTarget) setModal(null); }}>
-          <div className="confirm-modal" style={{maxWidth:460}}>
-            <h2 style={{color:'#1b4d1c',marginBottom:14,fontSize:16}}>{modal === 'edit' ? 'Edit Pricing Tier' : 'Create Pricing Tier'}</h2>
-            <div style={{display:'flex',flexDirection:'column',gap:10}}>
+          <div className="confirm-modal" style={{ maxWidth: 460 }}>
+            <h2 style={{ color: '#1b4d1c', marginBottom: 14, fontSize: 16 }}>{modal === 'edit' ? 'Edit Pricing Tier' : 'Create Pricing Tier'}</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <div>
-                <label style={{fontSize:11,fontWeight:600,color:'#6B7280',display:'block',marginBottom:3}}>Tier Name *</label>
-                <input style={inputStyle} value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
-                {fieldErrors?.name && <div style={{fontSize:10,color:'#DC2626',marginTop:3}}>{fieldErrors.name[0]}</div>}
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#6B7280', display: 'block', marginBottom: 3 }}>Tier Name *</label>
+                <input style={inputStyle} value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
+                {fieldErrors?.name && <div style={{ fontSize: 10, color: '#DC2626', marginTop: 3 }}>{fieldErrors.name[0]}</div>}
               </div>
               <div>
-                <label style={{fontSize:11,fontWeight:600,color:'#6B7280',display:'block',marginBottom:3}}>Skill Level</label>
-                <select style={inputStyle} value={form.skill_level} onChange={e => setForm({...form, skill_level: e.target.value})}>
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#6B7280', display: 'block', marginBottom: 3 }}>Skill Level</label>
+                <select style={inputStyle} value={form.skill_level} onChange={e => setForm({ ...form, skill_level: e.target.value })}>
                   <option value="">Select...</option>
                   <option value="basic">Basic</option>
                   <option value="intermediate">Intermediate</option>
@@ -257,24 +261,24 @@ export default function PricingTiersPage() {
                   <option value="medical">Medical</option>
                 </select>
               </div>
-              <div className="responsive-form-grid" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
+              <div className="responsive-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                 <div>
-                  <label style={{fontSize:11,fontWeight:600,color:'#6B7280',display:'block',marginBottom:3}}>Customer Rate *</label>
-                  <input style={inputStyle} type="number" min="0" value={form.customer_hourly_rate} onChange={e => setForm({...form, customer_hourly_rate: e.target.value})} />
-                  {fieldErrors?.customer_hourly_rate && <div style={{fontSize:10,color:'#DC2626',marginTop:3}}>{fieldErrors.customer_hourly_rate[0]}</div>}
+                  <label style={{ fontSize: 11, fontWeight: 600, color: '#6B7280', display: 'block', marginBottom: 3 }}>Customer Rate *</label>
+                  <input style={inputStyle} type="number" min="0" value={form.customer_hourly_rate} onChange={e => setForm({ ...form, customer_hourly_rate: e.target.value })} />
+                  {fieldErrors?.customer_hourly_rate && <div style={{ fontSize: 10, color: '#DC2626', marginTop: 3 }}>{fieldErrors.customer_hourly_rate[0]}</div>}
                 </div>
                 <div>
-                  <label style={{fontSize:11,fontWeight:600,color:'#6B7280',display:'block',marginBottom:3}}>Caretaker Rate *</label>
-                  <input style={inputStyle} type="number" min="0" value={form.caretaker_hourly_rate} onChange={e => setForm({...form, caretaker_hourly_rate: e.target.value})} />
-                  {fieldErrors?.caretaker_hourly_rate && <div style={{fontSize:10,color:'#DC2626',marginTop:3}}>{fieldErrors.caretaker_hourly_rate[0]}</div>}
+                  <label style={{ fontSize: 11, fontWeight: 600, color: '#6B7280', display: 'block', marginBottom: 3 }}>Caretaker Rate *</label>
+                  <input style={inputStyle} type="number" min="0" value={form.caretaker_hourly_rate} onChange={e => setForm({ ...form, caretaker_hourly_rate: e.target.value })} />
+                  {fieldErrors?.caretaker_hourly_rate && <div style={{ fontSize: 10, color: '#DC2626', marginTop: 3 }}>{fieldErrors.caretaker_hourly_rate[0]}</div>}
                 </div>
               </div>
               <div>
-                <label style={{fontSize:11,fontWeight:600,color:'#6B7280',display:'block',marginBottom:3}}>Commission %</label>
-                <input style={inputStyle} type="number" min="0" max="100" value={form.commission_percentage} onChange={e => setForm({...form, commission_percentage: e.target.value})} />
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#6B7280', display: 'block', marginBottom: 3 }}>Commission %</label>
+                <input style={inputStyle} type="number" min="0" max="100" value={form.commission_percentage} onChange={e => setForm({ ...form, commission_percentage: e.target.value })} />
               </div>
             </div>
-            <div style={{display:'flex',gap:8,justifyContent:'flex-end',marginTop:14}}>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 14 }}>
               <button className="btn btn-outline" onClick={() => setModal(null)} disabled={processing}>Cancel</button>
               <button className="btn btn-primary" onClick={handleSubmit} disabled={processing}>{processing ? 'Saving...' : 'Save Tier'}</button>
             </div>
@@ -291,8 +295,8 @@ export default function PricingTiersPage() {
           confirmLabel={processing ? 'Assigning...' : 'Assign Tier'}
           loading={processing}
         >
-          <div style={{marginTop:12}}>
-            <label style={{fontSize:12,fontWeight:600,color:'#6B7280',display:'block',marginBottom:4}}>Caretaker User ID *</label>
+          <div style={{ marginTop: 12 }}>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#6B7280', display: 'block', marginBottom: 4 }}>Caretaker User ID *</label>
             <input
               style={inputStyle}
               value={assignCaretakerId}

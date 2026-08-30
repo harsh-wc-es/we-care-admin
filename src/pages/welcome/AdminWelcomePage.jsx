@@ -35,14 +35,14 @@ const DESKS = [
 
 /* Floating decorative badges with multi-axis float animations */
 const FLOATING_ICONS = [
-  { Icon: Heart,       size: 24, badgeSize: 52, className: 'floating-badge--rose',     style: { top: '130px', right: '4%',  '--float-dur': '3.8s', '--float-delay': '0s',    '--float-rot-start': '-6deg', '--float-rot-end': '8deg' } },
-  { Icon: Shield,      size: 22, badgeSize: 48, className: '',                        style: { top: '220px', left: '2%',   '--float-dur': '4.4s', '--float-delay': '0.8s',  '--float-rot-start': '4deg',  '--float-rot-end': '-6deg' } },
-  { Icon: Star,        size: 20, badgeSize: 44, className: 'floating-badge--amber',    style: { top: '440px', right: '2%',  '--float-dur': '3.6s', '--float-delay': '0.3s',  '--float-rot-start': '0deg',  '--float-rot-end': '12deg' } },
-  { Icon: Activity,    size: 24, badgeSize: 50, className: 'floating-badge--emerald',  style: { top: '780px', left: '2%',   '--float-dur': '4.2s', '--float-delay': '1.1s',  '--float-rot-start': '-4deg', '--float-rot-end': '6deg' } },
-  { Icon: Sparkles,    size: 22, badgeSize: 46, className: 'floating-badge--lavender', style: { top: '1020px', right: '3%', '--float-dur': '4.6s', '--float-delay': '0.5s',  '--float-rot-start': '6deg',  '--float-rot-end': '-4deg' } },
-  { Icon: Stethoscope, size: 24, badgeSize: 52, className: '',                        style: { top: '1320px', left: '2%',  '--float-dur': '4.0s', '--float-delay': '1.3s',  '--float-rot-start': '-3deg', '--float-rot-end': '8deg' } },
-  { Icon: Clock,       size: 20, badgeSize: 44, className: 'floating-badge--amber',    style: { top: '1580px', right: '3%', '--float-dur': '4.5s', '--float-delay': '0.2s',  '--float-rot-start': '4deg',  '--float-rot-end': '-8deg' } },
-  { Icon: Zap,         size: 22, badgeSize: 48, className: 'floating-badge--lavender', style: { top: '1900px', left: '3%',  '--float-dur': '3.7s', '--float-delay': '1.0s',  '--float-rot-start': '-6deg', '--float-rot-end': '10deg' } },
+  { Icon: Heart, size: 24, badgeSize: 52, className: 'floating-badge--rose', style: { top: '130px', right: '4%', '--float-dur': '3.8s', '--float-delay': '0s', '--float-rot-start': '-6deg', '--float-rot-end': '8deg' } },
+  { Icon: Shield, size: 22, badgeSize: 48, className: '', style: { top: '220px', left: '2%', '--float-dur': '4.4s', '--float-delay': '0.8s', '--float-rot-start': '4deg', '--float-rot-end': '-6deg' } },
+  { Icon: Star, size: 20, badgeSize: 44, className: 'floating-badge--amber', style: { top: '440px', right: '2%', '--float-dur': '3.6s', '--float-delay': '0.3s', '--float-rot-start': '0deg', '--float-rot-end': '12deg' } },
+  { Icon: Activity, size: 24, badgeSize: 50, className: 'floating-badge--emerald', style: { top: '780px', left: '2%', '--float-dur': '4.2s', '--float-delay': '1.1s', '--float-rot-start': '-4deg', '--float-rot-end': '6deg' } },
+  { Icon: Sparkles, size: 22, badgeSize: 46, className: 'floating-badge--lavender', style: { top: '1020px', right: '3%', '--float-dur': '4.6s', '--float-delay': '0.5s', '--float-rot-start': '6deg', '--float-rot-end': '-4deg' } },
+  { Icon: Stethoscope, size: 24, badgeSize: 52, className: '', style: { top: '1320px', left: '2%', '--float-dur': '4.0s', '--float-delay': '1.3s', '--float-rot-start': '-3deg', '--float-rot-end': '8deg' } },
+  { Icon: Clock, size: 20, badgeSize: 44, className: 'floating-badge--amber', style: { top: '1580px', right: '3%', '--float-dur': '4.5s', '--float-delay': '0.2s', '--float-rot-start': '4deg', '--float-rot-end': '-8deg' } },
+  { Icon: Zap, size: 22, badgeSize: 48, className: 'floating-badge--lavender', style: { top: '1900px', left: '3%', '--float-dur': '3.7s', '--float-delay': '1.0s', '--float-rot-start': '-6deg', '--float-rot-end': '10deg' } },
 ];
 
 export default function AdminWelcomePage() {

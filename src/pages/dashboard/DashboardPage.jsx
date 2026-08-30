@@ -91,11 +91,13 @@ const DASHBOARD_STATS = [
   { label: 'Pending Refunds', path: '/admin/refunds', value: (data) => hasRefundSummary(data.refund_summary) ? refundSummaryCount(data.refund_summary, 'pending') : (asObject(data.stats).pending_refunds ?? asObject(data.counts).pending_refunds ?? 0) },
   { label: 'Approved Refunds', path: '/admin/refunds', value: (data) => hasRefundSummary(data.refund_summary) ? refundSummaryCount(data.refund_summary, 'approved') : (asObject(data.stats).approved_refunds ?? asObject(data.counts).approved_refunds ?? 0) },
   { label: 'Processed Refunds', path: '/admin/refunds', value: (data) => hasRefundSummary(data.refund_summary) ? refundSummaryCount(data.refund_summary, 'processed') : (asObject(data.stats).processed_refunds ?? asObject(data.counts).processed_refunds ?? 0) },
-  { label: 'Total Refund Amount', path: '/admin/refunds', value: (data) => {
-    const summary = data.refund_summary;
-    const summaryTotal = ['pending', 'approved', 'rejected', 'processed', 'failed'].reduce((sum, status) => sum + refundSummaryAmount(summary, status), 0);
-    return money(hasRefundSummary(summary) ? summaryTotal : (asObject(data.stats).total_refund_amount ?? asObject(data.counts).total_refund_amount ?? 0));
-  } },
+  {
+    label: 'Total Refund Amount', path: '/admin/refunds', value: (data) => {
+      const summary = data.refund_summary;
+      const summaryTotal = ['pending', 'approved', 'rejected', 'processed', 'failed'].reduce((sum, status) => sum + refundSummaryAmount(summary, status), 0);
+      return money(hasRefundSummary(summary) ? summaryTotal : (asObject(data.stats).total_refund_amount ?? asObject(data.counts).total_refund_amount ?? 0));
+    }
+  },
 ];
 
 export default function DashboardPage() {
@@ -168,38 +170,38 @@ export default function DashboardPage() {
     <>
       <TopBar searchPlaceholder="Search admin records..." />
       <div className="page-content">
-        <div className="responsive-page-header" style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+        <div className="responsive-page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <div>
-            <h1 className="page-title" style={{marginBottom:4}}>WeCare Admin Operations</h1>
-            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Unified overview for caretaker verification, bookings, visits, and safety governance.</p>
+            <h1 className="page-title" style={{ marginBottom: 4 }}>WeCare Admin Operations</h1>
+            <p style={{ color: '#6B7280', fontSize: 13, margin: 0 }}>Unified overview for caretaker verification, bookings, visits, and safety governance.</p>
           </div>
-          <button className="btn btn-outline" onClick={fetchDashboard} style={{fontSize:12}} disabled={loading}>
+          <button className="btn btn-outline" onClick={fetchDashboard} style={{ fontSize: 12 }} disabled={loading}>
             {loading ? 'Loading...' : 'Refresh'}
           </button>
         </div>
 
         {error && <ErrorState title="Dashboard unavailable" message={error} onRetry={fetchDashboard} />}
 
-        <div className="stats-grid" style={{gridTemplateColumns:'repeat(5,1fr)',gap:10,marginBottom:16}}>
+        <div className="stats-grid" style={{ gridTemplateColumns: 'repeat(5,1fr)', gap: 10, marginBottom: 16 }}>
           {DASHBOARD_STATS.map((stat) => (
             <button
               key={stat.label}
               className="stat-card"
-              style={{textAlign:'left',cursor:'pointer',padding:'14px 16px'}}
+              style={{ textAlign: 'left', cursor: 'pointer', padding: '14px 16px' }}
               onClick={() => navigate(stat.path)}
             >
               <div className="stat-label">{stat.label}</div>
-              {loading ? <LoadingSkeleton style={{height:24,width:60}} /> : (
+              {loading ? <LoadingSkeleton style={{ height: 24, width: 60 }} /> : (
                 <div className="stat-value">{stat.value({ ...(data || {}), refund_summary: effectiveRefundSummary }) ?? 0}</div>
               )}
             </button>
           ))}
         </div>
 
-        <div className="table-card" style={{padding:0}}>
-          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 16px',borderBottom:'1px solid #E4ECD9'}}>
-            <h3 style={{margin:0,fontSize:14,fontWeight:700,color:'#1b4d1c'}}>SOS Alerts</h3>
-            <button className="btn btn-outline" style={{fontSize:11,padding:'5px 12px'}} onClick={() => navigate('/sos-alerts')}>Open</button>
+        <div className="table-card" style={{ padding: 0 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 16px', borderBottom: '1px solid #E4ECD9' }}>
+            <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: '#1b4d1c' }}>SOS Alerts</h3>
+            <button className="btn btn-outline" style={{ fontSize: 11, padding: '5px 12px' }} onClick={() => navigate('/sos-alerts')}>Open</button>
           </div>
           <DataTable
             columns={sosColumns}
@@ -210,10 +212,10 @@ export default function DashboardPage() {
           />
         </div>
 
-        <div className="table-card" style={{padding:0,marginTop:14}}>
-          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 16px',borderBottom:'1px solid #E4ECD9'}}>
-            <h3 style={{margin:0,fontSize:14,fontWeight:700,color:'#1b4d1c'}}>Recent Refunds</h3>
-            <button className="btn btn-outline" style={{fontSize:11,padding:'5px 12px'}} onClick={() => navigate('/admin/refunds')}>Open</button>
+        <div className="table-card" style={{ padding: 0, marginTop: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 16px', borderBottom: '1px solid #E4ECD9' }}>
+            <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: '#1b4d1c' }}>Recent Refunds</h3>
+            <button className="btn btn-outline" style={{ fontSize: 11, padding: '5px 12px' }} onClick={() => navigate('/admin/refunds')}>Open</button>
           </div>
           <DataTable
             columns={refundColumns}

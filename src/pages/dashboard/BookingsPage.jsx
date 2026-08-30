@@ -17,7 +17,7 @@ import { bookingService } from '../../services/bookingService';
 import { extractItems } from '../../utils/apiData';
 import { formatDate } from '../../utils/formatDate';
 
-const FILTERS = ['all','pending','accepted','declined','in_progress','completed','cancelled'];
+const FILTERS = ['all', 'pending', 'accepted', 'declined', 'in_progress', 'completed', 'cancelled'];
 
 function bookingId(booking) {
   return booking?.id || booking?.booking_id || booking?.bookingId || '';
@@ -204,15 +204,17 @@ export default function BookingsPage() {
   };
 
   const columns = [
-    { key: 'id', label: 'Booking ID', render: (r) => <span style={{fontWeight:600,fontSize:12,color:'#6B7280'}}>#{bookingId(r) || '—'}</span> },
+    { key: 'id', label: 'Booking ID', render: (r) => <span style={{ fontWeight: 600, fontSize: 12, color: '#6B7280' }}>#{bookingId(r) || '—'}</span> },
     { key: 'patient_name', label: 'Patient', render: (r) => r.patient_name || r.patient?.name || '—' },
     { key: 'caregiver_name', label: 'Caretaker', render: (r) => r.caregiver_name || r.caretaker_name || r.caretaker_username || r.caretaker?.name || '—' },
     { key: 'status', label: 'Status', render: (r) => <Badge status={r.status} /> },
     { key: 'booking_date', label: 'Date', render: (r) => r.booking_date || '—' },
     { key: 'amount', label: 'Amount', render: (r) => (r.total_customer_amount || r.total_amount) ? `₹${r.total_customer_amount || r.total_amount}` : '—' },
-    { key: 'actions', label: '', render: (r) => (
-      <button className="btn btn-outline" style={{fontSize:11,padding:'4px 10px'}} onClick={() => openDrawer(r)}>View</button>
-    )},
+    {
+      key: 'actions', label: '', render: (r) => (
+        <button className="btn btn-outline" style={{ fontSize: 11, padding: '4px 10px' }} onClick={() => openDrawer(r)}>View</button>
+      )
+    },
   ];
 
   const d = drawerData || selectedBooking || {};
@@ -228,19 +230,19 @@ export default function BookingsPage() {
     <>
       <TopBar searchPlaceholder="Search bookings..." onSearch={handleSearch} />
       <div className="page-content">
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
           <div>
-            <h1 className="page-title" style={{marginBottom:2}}>Bookings</h1>
-            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Coordinate and manage patient care bookings, schedule assignments, and visit follow-ups.</p>
+            <h1 className="page-title" style={{ marginBottom: 2 }}>Bookings</h1>
+            <p style={{ color: '#6B7280', fontSize: 13, margin: 0 }}>Coordinate and manage patient care bookings, schedule assignments, and visit follow-ups.</p>
           </div>
-          <span style={{background:'#E8F5E1',color:'#16A34A',fontSize:12,fontWeight:700,padding:'6px 14px',borderRadius:6}}>
+          <span style={{ background: '#E8F5E1', color: '#16A34A', fontSize: 12, fontWeight: 700, padding: '6px 14px', borderRadius: 6 }}>
             {bookings.length} bookings
           </span>
         </div>
         <FilterBar filters={FILTERS} active={filter} onChange={handleFilterChange} />
         {error && <ErrorState title={error} onRetry={fetchBookings} />}
         <div className="table-card">
-          <div style={{maxHeight:'calc(100vh - 300px)',overflow:'auto'}}>
+          <div style={{ maxHeight: 'calc(100vh - 300px)', overflow: 'auto' }}>
             <DataTable columns={columns} rows={bookings} loading={loading}
               emptyState={<EmptyState title="No bookings found" message={`No bookings match the "${filter}" filter.`} />} />
           </div>
@@ -251,7 +253,7 @@ export default function BookingsPage() {
       {selectedBooking && (
         <DrawerPanel title={`Booking #${currentBookingId || '—'}`} onClose={() => { setSelectedBooking(null); setDrawerData(null); }}>
           {drawerLoading ? (
-            <div style={{padding:16}}>{Array.from({length:6}).map((_,i) => <LoadingSkeleton key={i} style={{height:20,marginBottom:12}} />)}</div>
+            <div style={{ padding: 16 }}>{Array.from({ length: 6 }).map((_, i) => <LoadingSkeleton key={i} style={{ height: 20, marginBottom: 12 }} />)}</div>
           ) : <>
             <div className="user-drawer__section"><h4>Booking Details</h4><div className="user-info-grid">
               <div className="user-info-item"><span>Status</span><p><Badge status={d.status} /></p></div>
@@ -288,29 +290,29 @@ export default function BookingsPage() {
                 <div className="user-info-item"><span>Refund Processed</span><p>{dateText(refund?.processed_at)}</p></div>
                 <div className="user-info-item"><span>Refund Method</span><p>{refund?.refund_method || '—'}</p></div>
                 <div className="user-info-item"><span>Refund Transaction ID</span><p>{refund?.refund_transaction_id || '—'}</p></div>
-                <div className="user-info-item" style={{gridColumn:'1 / -1'}}><span>Admin Note</span><p>{refund?.admin_note || '—'}</p></div>
+                <div className="user-info-item" style={{ gridColumn: '1 / -1' }}><span>Admin Note</span><p>{refund?.admin_note || '—'}</p></div>
                 <div className="user-info-item"><span>Cancellation Fee</span><p>{refund?.cancellation_fee !== undefined ? money(refund.cancellation_fee) : '—'}</p></div>
                 <div className="user-info-item"><span>Policy</span><p>{refund?.policy_label || refund?.reason || '—'}</p></div>
               </div></div>
             ) : d.status === 'cancelled' && (
               <div className="user-drawer__section"><h4>Refund Information</h4>
-                <div style={{background:'#F9FAFB',border:'1px solid #E5E7EB',borderRadius:6,padding:'10px 12px'}}>
+                <div style={{ background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: 6, padding: '10px 12px' }}>
                   {missingRefundForPaidCancellation ? (
-                    <p style={{margin:0,fontSize:13,fontWeight:700,color:'#B91C1C'}}>Refund record missing for this paid cancelled booking.</p>
+                    <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#B91C1C' }}>Refund record missing for this paid cancelled booking.</p>
                   ) : (
-                    <p style={{margin:0,fontSize:13,fontWeight:700,color:'#374151'}}>No refund applicable for this cancellation.</p>
+                    <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#374151' }}>No refund applicable for this cancellation.</p>
                   )}
                 </div>
               </div>
             )}
-            <div style={{display:'flex',gap:8,flexWrap:'wrap',paddingTop:12}}>
-              <button className="btn btn-outline" style={{fontSize:12}} onClick={() => navigate('/live-tracking')}>Track Visit</button>
-              <button className="btn btn-outline" style={{fontSize:12}} onClick={() => navigate('/complaints')}>View Complaints</button>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', paddingTop: 12 }}>
+              <button className="btn btn-outline" style={{ fontSize: 12 }} onClick={() => navigate('/live-tracking')}>Track Visit</button>
+              <button className="btn btn-outline" style={{ fontSize: 12 }} onClick={() => navigate('/complaints')}>View Complaints</button>
               {refundId && (
-                <button className="btn btn-outline" style={{fontSize:12}} onClick={() => navigate(`/admin/refunds?refund_id=${refundId}`)}>View Refund</button>
+                <button className="btn btn-outline" style={{ fontSize: 12 }} onClick={() => navigate(`/admin/refunds?refund_id=${refundId}`)}>View Refund</button>
               )}
               {!['completed', 'cancelled', 'declined'].includes(d.status) && (
-                <button className="btn btn-danger" style={{fontSize:12}} disabled={processing} onClick={() => { setCancelModal(d); setCancelReason(''); setCancelErrors(null); }}>Cancel Booking</button>
+                <button className="btn btn-danger" style={{ fontSize: 12 }} disabled={processing} onClick={() => { setCancelModal(d); setCancelReason(''); setCancelErrors(null); }}>Cancel Booking</button>
               )}
             </div>
           </>}
@@ -326,15 +328,15 @@ export default function BookingsPage() {
           confirmLabel={processing ? 'Cancelling...' : 'Cancel Booking'}
           loading={processing}
         >
-          <div style={{marginTop:10}}>
-            <label style={{fontSize:11,fontWeight:700,color:'#6B7280',display:'block',marginBottom:4}}>Cancellation reason *</label>
+          <div style={{ marginTop: 10 }}>
+            <label style={{ fontSize: 11, fontWeight: 700, color: '#6B7280', display: 'block', marginBottom: 4 }}>Cancellation reason *</label>
             <textarea
-              style={{width:'100%',minHeight:70,padding:8,border:'1px solid #E4ECD9',borderRadius:6,fontSize:13,resize:'vertical'}}
+              style={{ width: '100%', minHeight: 70, padding: 8, border: '1px solid #E4ECD9', borderRadius: 6, fontSize: 13, resize: 'vertical' }}
               value={cancelReason}
               onChange={(e) => setCancelReason(e.target.value)}
               placeholder="Explain why admin is cancelling this booking..."
             />
-            {cancelErrors?.reason && <div style={{fontSize:11,color:'#DC2626',marginTop:4}}>{cancelErrors.reason[0]}</div>}
+            {cancelErrors?.reason && <div style={{ fontSize: 11, color: '#DC2626', marginTop: 4 }}>{cancelErrors.reason[0]}</div>}
           </div>
         </ConfirmationModal>
       )}
