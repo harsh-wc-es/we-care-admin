@@ -320,7 +320,7 @@ export default function SettingsPage() {
 
             <SettingsCard title="App Info">
               <div className="user-info-grid">
-                <div className="user-info-item"><span>Version</span><p>Demo Prototype</p></div>
+                <div className="user-info-item"><span>Version</span><p>v1.0.4 Enterprise Admin</p></div>
                 <div className="user-info-item"><span>Frontend</span><p>React + Vite</p></div>
                 <div className="user-info-item"><span>Backend</span><p>FastAPI (Python)</p></div>
                 <div className="user-info-item"><span>Auth</span><p>JWT Bearer Token</p></div>

@@ -181,7 +181,7 @@ export default function PricingTiersPage() {
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
           <div>
             <h1 className="page-title" style={{marginBottom:2}}>Pricing Tiers</h1>
-            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Simple caretaker rate tiers for demo bookings and approvals.</p>
+            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Configure hourly and daily rate tiers, caregiver commissions, and package options.</p>
           </div>
           <button className="btn btn-primary" style={{fontSize:12}} onClick={openCreate}>Add Tier</button>
         </div>

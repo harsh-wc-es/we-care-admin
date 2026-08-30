@@ -81,7 +81,7 @@ function hasRefundSummary(summary) {
   return Object.keys(asObject(summary)).length > 0;
 }
 
-const DEMO_STATS = [
+const DASHBOARD_STATS = [
   { label: 'Total Users', path: '/users', value: (data) => asObject(data.counts).total_users },
   { label: 'Active Caretakers', path: '/caregivers', value: (data) => asObject(data.counts).total_caretakers },
   { label: 'Bookings', path: '/bookings', value: (data) => asObject(data.counts).total_bookings },
@@ -166,12 +166,12 @@ export default function DashboardPage() {
 
   return (
     <>
-      <TopBar searchPlaceholder="Search demo data..." />
+      <TopBar searchPlaceholder="Search admin records..." />
       <div className="page-content">
         <div className="responsive-page-header" style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
           <div>
-            <h1 className="page-title" style={{marginBottom:4}}>WeCare Admin Demo</h1>
-            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Simple overview for caretaker verification, bookings, visits, and safety.</p>
+            <h1 className="page-title" style={{marginBottom:4}}>WeCare Admin Operations</h1>
+            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Unified overview for caretaker verification, bookings, visits, and safety governance.</p>
           </div>
           <button className="btn btn-outline" onClick={fetchDashboard} style={{fontSize:12}} disabled={loading}>
             {loading ? 'Loading...' : 'Refresh'}
@@ -181,7 +181,7 @@ export default function DashboardPage() {
         {error && <ErrorState title="Dashboard unavailable" message={error} onRetry={fetchDashboard} />}
 
         <div className="stats-grid" style={{gridTemplateColumns:'repeat(5,1fr)',gap:10,marginBottom:16}}>
-          {DEMO_STATS.map((stat) => (
+          {DASHBOARD_STATS.map((stat) => (
             <button
               key={stat.label}
               className="stat-card"

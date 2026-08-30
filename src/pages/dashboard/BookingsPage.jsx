@@ -231,7 +231,7 @@ export default function BookingsPage() {
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
           <div>
             <h1 className="page-title" style={{marginBottom:2}}>Bookings</h1>
-            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Basic booking list for demo review and visit follow-up.</p>
+            <p style={{color:'#6B7280',fontSize:13,margin:0}}>Coordinate and manage patient care bookings, schedule assignments, and visit follow-ups.</p>
           </div>
           <span style={{background:'#E8F5E1',color:'#16A34A',fontSize:12,fontWeight:700,padding:'6px 14px',borderRadius:6}}>
             {bookings.length} bookings
