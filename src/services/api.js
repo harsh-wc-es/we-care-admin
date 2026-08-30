@@ -42,8 +42,40 @@ function resolveApiUrl(endpoint) {
   return new URL(joinUrl(endpoint), window.location.origin).toString();
 }
 
+function parseJwtPayload(token) {
+  if (!token || typeof token !== 'string') return null;
+  try {
+    const base64Url = token.split('.')[1];
+    if (!base64Url) return null;
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  } catch {
+    return null;
+  }
+}
+
+function isTokenExpired(token) {
+  if (!token) return true;
+  const payload = parseJwtPayload(token);
+  if (!payload) return true;
+  if (typeof payload.exp !== 'number') return false;
+  return payload.exp * 1000 <= Date.now() + 5000;
+}
+
 function getToken() {
-  return localStorage.getItem(AUTH_KEYS.access) || '';
+  const token = localStorage.getItem(AUTH_KEYS.access) || '';
+  if (!token) return '';
+  if (isTokenExpired(token)) {
+    clearAuth();
+    return '';
+  }
+  return token;
 }
 
 function setToken(token) {
@@ -82,12 +114,13 @@ function isAdminUser(user = getUser()) {
 }
 
 function isAuthenticated() {
-  return Boolean(getToken() && isAdminUser());
+  const token = getToken();
+  return Boolean(token && !isTokenExpired(token) && isAdminUser());
 }
 
 function redirectToLogin() {
-  if (typeof window !== 'undefined' && window.location.pathname !== '/') {
-    window.location.replace('/');
+  if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+    window.location.replace('/login');
   }
 }
 
@@ -475,4 +508,6 @@ export {
   clearAuth,
   isAdminUser,
   isAuthenticated,
+  isTokenExpired,
+  parseJwtPayload,
 };

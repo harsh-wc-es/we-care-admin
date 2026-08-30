@@ -8,7 +8,7 @@ import {
   Heart, Star, Activity, Sparkles, Shield, Stethoscope, Clock, Zap,
   Radio, CheckCircle2, Lock, ArrowUpRight
 } from 'lucide-react';
-import { getToken, getUser, isAdminUser } from '../../services/api';
+import { clearAuth, getToken, getUser, isAdminUser, isTokenExpired } from '../../services/api';
 import logoImg from '../../assets/wecare-logo.png';
 import './welcome.css';
 
@@ -53,8 +53,16 @@ export default function AdminWelcomePage() {
 
   useEffect(() => {
     const user = getUser();
-    setCurrentUser(user);
-    setIsLoggedIn(Boolean(getToken() && isAdminUser()));
+    const token = getToken();
+    const isAuth = Boolean(token && !isTokenExpired(token) && isAdminUser(user));
+    if (!isAuth) {
+      clearAuth();
+      setCurrentUser(null);
+      setIsLoggedIn(false);
+    } else {
+      setCurrentUser(user);
+      setIsLoggedIn(true);
+    }
   }, []);
 
   useEffect(() => {
