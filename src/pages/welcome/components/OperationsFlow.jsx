@@ -6,7 +6,6 @@ import {
   MapPin, 
   BellRing, 
   CircleDollarSign, 
-  Clock, 
   ArrowRight,
   Workflow
 } from 'lucide-react';

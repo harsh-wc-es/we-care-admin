@@ -8,8 +8,7 @@ import {
   CheckCircle2, 
   Copy, 
   Check, 
-  Terminal,
-  Play
+  Terminal
 } from 'lucide-react';
 
 const SIMULATOR_SCENARIOS = [

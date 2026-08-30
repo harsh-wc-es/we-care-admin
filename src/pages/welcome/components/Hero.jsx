@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, MapPin, ChevronRight, Activity, Zap } from 'lucide-react';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 
-export default function Hero({ isLoggedIn, onOpenAuthModal }) {
+export default function Hero({ isLoggedIn }) {
   const navigate = useNavigate();
 
   return (

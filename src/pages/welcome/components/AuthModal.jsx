@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { X, AlertTriangle, KeyRound, Lock, ArrowRight } from 'lucide-react';
+import { X, AlertTriangle, KeyRound } from 'lucide-react';
 import logoImg from '../../../assets/wecare-logo.png';
 import { authService } from '../../../services/authService';
 
